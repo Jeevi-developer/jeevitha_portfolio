@@ -18,22 +18,22 @@ export default function Contact() {
     // Send to YOU
     emailjs
       .sendForm(
-        "service_9lcx2o8",
-        "template_ig2dq6g",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_NOTIFICATION_ID,
         form.current,
-        "paPKS5PH1NLFvdGOX"
+        process.env.REACT_APP_EMAILJS_USER_ID
       )
       .then(() => {
         // Send auto-reply to USER
         emailjs.send(
-          "service_9lcx2o8",
-          "template_o766dco", // <-- Create this in your dashboard
+          process.env.REACT_APP_EMAILJS_SERVICE_ID,
+           process.env.REACT_APP_EMAILJS_TEMPLATE_ID, // <-- Create this in your dashboard
           {
             user_name,
             user_email,
             message,
           },
-          "paPKS5PH1NLFvdGOX"
+          process.env.REACT_APP_EMAILJS_USER_ID
         );
 
         setStatus("Message sent!");
