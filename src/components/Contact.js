@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const form = useRef();
@@ -7,7 +9,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus("Sending...");
+    toast.info("Sending...");
 
     const formElements = form.current.elements;
 
@@ -27,7 +29,7 @@ export default function Contact() {
         // Send auto-reply to USER
         emailjs.send(
           process.env.REACT_APP_EMAILJS_SERVICE_ID,
-           process.env.REACT_APP_EMAILJS_TEMPLATE_ID, // <-- Create this in your dashboard
+          process.env.REACT_APP_EMAILJS_TEMPLATE_ID, // <-- Create this in your dashboard
           {
             user_name,
             user_email,
@@ -36,18 +38,25 @@ export default function Contact() {
           process.env.REACT_APP_EMAILJS_USER_ID
         );
 
-        setStatus("Message sent!");
+        toast.success("Message sent successfully!");
         form.current.reset();
       })
       .catch(() => {
-        setStatus("Failed to send. Try again later.");
+        toast.error("Failed to send. Please try again later.");
       });
   };
 
   return (
-    <section id="contact" className="py-20 px-6 md:px-20 bg-gray-50 dark:bg-gray-800">
+    <section
+      id="contact"
+      className="py-20 px-6 md:px-20 bg-gray-50 dark:bg-gray-800"
+    >
       <h2 className="text-3xl font-semibold mb-8 text-center">Contact Me</h2>
-      <form ref={form} onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-6">
+      <form
+        ref={form}
+        onSubmit={handleSubmit}
+        className="max-w-xl mx-auto space-y-6"
+      >
         <input
           type="text"
           name="name"
@@ -77,6 +86,7 @@ export default function Contact() {
         </button>
         {status && <p className="text-center mt-2">{status}</p>}
       </form>
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
     </section>
   );
 }

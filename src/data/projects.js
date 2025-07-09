@@ -10,7 +10,7 @@ export const projects = [
     id: 2,
     title: "Crypto exchange website",
     description: "Full-stack crypto application with MERN stack.",
-    imageUrl: "/assets/images/miruthangini-store.webp",
+    imageUrl: "/assets/images/crypto-exchange-website.jpg",
     repoUrl: "https://github.com/jeevi-developer/crypto-exchange-client",
     // liveUrl: "https://miruthangini-textiles.com",
   },
